@@ -22,23 +22,17 @@ public class Main_Page extends Activity {
         setContentView(R.layout.activity_main_page);
     }
 
-    public void jump_to_camera(View view) {
+    public void jumpToCamera(View view) {
         String content = get_text_from_editText();
 
         if (!isValid(content)) {
             return;
         }
         String number_only = content.replaceAll("-","");
-        int room_number = Integer.parseInt(number_only);
-
-        IndoorNavigation app = (IndoorNavigation) this.getApplicationContext();
-        app.setRoomNumber(room_number);
-
-
-//        Intent start_broadcast_service = new Intent(this, Send_Info.class);
-//        start_broadcast_service.putExtra("room_number", room_number);
+        int roomNumber = Integer.parseInt(number_only);
 
         Intent intent = new Intent(this, CaptureActivity.class);
+        intent.putExtra("roomNumber",roomNumber);
         startActivity(intent);
     }
 

@@ -37,13 +37,6 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
-
-        <service
-            android:name="com.zbar.lib.Send_and_receive_message"
-            android:enabled="true"
-            android:exported="true" >
-        </service>
-
         <activity
             android:name="com.zbar.lib.Send_Info"
             android:label="@string/title_activity_send_info" >

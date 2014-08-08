@@ -18,6 +18,7 @@
         android:id = "@+id/QRCodeResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/roomNumberResult"
         android:text="Scanned QR Code is " />
 </RelativeLayout>
 <!-- From: file:/home/yao/AndroidStudioProjects/Indoor_Navigation/app/src/main/res/layout/activity_send_info.xml -->

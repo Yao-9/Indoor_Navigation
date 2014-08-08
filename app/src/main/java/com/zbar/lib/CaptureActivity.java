@@ -34,7 +34,6 @@ public class CaptureActivity extends Activity implements Callback {
 	private MediaPlayer mediaPlayer;
 	private boolean playBeep;
 	private static final float BEEP_VOLUME = 0.50f;
-	private boolean vibrate;
 	private int x = 0;
 	private int y = 0;
 	private int cropWidth = 0;
@@ -139,8 +138,6 @@ public class CaptureActivity extends Activity implements Callback {
 		if (audioService.getRingerMode() != AudioManager.RINGER_MODE_NORMAL) {
 			playBeep = false;
 		}
-		initBeepSound();
-		vibrate = true;
 	}
 
 	@Override
@@ -161,14 +158,17 @@ public class CaptureActivity extends Activity implements Callback {
 
 	public void handleDecode(String result) {
 		inactivityTimer.onActivity();
-		playBeepSoundAndVibrate();
-        Intent jumpToSendPage = new Intent(this, Send_Info.class);
-        jumpToSendPage.putExtra("qrCode", result);
-//		Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-        startActivity(jumpToSendPage);
 
-		// 连续扫描，不发送此消息扫描一次结束后就不能再次扫描
-		// handler.sendEmptyMessage(R.id.restart_preview);
+        Intent fromMain = getIntent();
+        int room_number = fromMain.getIntExtra("roomNumber", -1);
+
+        Intent jumpToSendPage = new Intent(this, Send_Info.class);
+        jumpToSendPage.putExtra("roomNumber", room_number);
+        jumpToSendPage.putExtra("qrCode",result);
+
+        //TODO:Send Information to Server
+
+        startActivity(jumpToSendPage);
 	}
 
 	private void initCamera(SurfaceHolder surfaceHolder) {
@@ -224,37 +224,6 @@ public class CaptureActivity extends Activity implements Callback {
 
 	public Handler getHandler() {
 		return handler;
-	}
-
-	private void initBeepSound() {
-		if (playBeep && mediaPlayer == null) {
-			setVolumeControlStream(AudioManager.STREAM_MUSIC);
-			mediaPlayer = new MediaPlayer();
-			mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-			mediaPlayer.setOnCompletionListener(beepListener);
-
-			AssetFileDescriptor file = getResources().openRawResourceFd(R.raw.beep);
-			try {
-				mediaPlayer.setDataSource(file.getFileDescriptor(), file.getStartOffset(), file.getLength());
-				file.close();
-				mediaPlayer.setVolume(BEEP_VOLUME, BEEP_VOLUME);
-				mediaPlayer.prepare();
-			} catch (IOException e) {
-				mediaPlayer = null;
-			}
-		}
-	}
-
-	private static final long VIBRATE_DURATION = 200L;
-
-	private void playBeepSoundAndVibrate() {
-		if (playBeep && mediaPlayer != null) {
-			mediaPlayer.start();
-		}
-		if (vibrate) {
-			Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-			vibrator.vibrate(VIBRATE_DURATION);
-		}
 	}
 
 	private final OnCompletionListener beepListener = new OnCompletionListener() {

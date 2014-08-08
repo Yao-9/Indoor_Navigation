@@ -16,15 +16,14 @@ public class Send_Info extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-//        int room_number = intent.getIntExtra("room_number", -1);
-        IndoorNavigation app = (IndoorNavigation) getApplicationContext();
-        int room_number = app.getRoomNumber();
         String qr_code = intent.getStringExtra("qrCode");
+        int room_number = intent.getIntExtra("roomNumber", -1);
 
         setContentView(R.layout.activity_send_info);
 
         TextView roomNumberView = (TextView) findViewById(R.id.roomNumberResult);
         TextView qrCodeView = (TextView) findViewById(R.id.QRCodeResult);
+        // TODO: Get Instruction from server
         roomNumberView.append(Integer.toString(room_number));
         if (qr_code != null)
             qrCodeView.append(qr_code);

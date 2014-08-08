@@ -21,6 +21,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/room_number"
-        android:onClick="jump_to_camera" />
+        android:onClick="jumpToCamera" />
 
 </RelativeLayout>
