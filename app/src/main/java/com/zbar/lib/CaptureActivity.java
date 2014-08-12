@@ -1,14 +1,22 @@
 package com.zbar.lib;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.res.AssetFileDescriptor;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
 import android.os.Vibrator;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
@@ -27,13 +35,9 @@ import com.zbar.lib.decode.InactivityTimer;
 import java.io.IOException;
 
 public class CaptureActivity extends Activity implements Callback {
-
 	private CaptureActivityHandler handler;
 	private boolean hasSurface;
 	private InactivityTimer inactivityTimer;
-	private MediaPlayer mediaPlayer;
-	private boolean playBeep;
-	private static final float BEEP_VOLUME = 0.50f;
 	private int x = 0;
 	private int y = 0;
 	private int cropWidth = 0;
@@ -82,13 +86,39 @@ public class CaptureActivity extends Activity implements Callback {
 		this.cropHeight = cropHeight;
 	}
 
+    public Handler getHandler() {
+        return handler;
+    }
+
+    boolean mIsBound;
+
+    Messenger mService = null;
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            mService = new Messenger(iBinder);
+            try {
+                Message msg = Message.obtain(null, ToHttpServer.MSG_REGISTER_CLIENT);
+                mService.send(msg);
+            } catch (RemoteException e) {
+                // Pass
+            }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            mService = null;
+            mIsBound = false;
+        }
+    };
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_qr_scan);
-		// 初始化 CameraManager
 		CameraManager.init(getApplication());
 		hasSurface = false;
 		inactivityTimer = new InactivityTimer(this);
@@ -106,21 +136,6 @@ public class CaptureActivity extends Activity implements Callback {
 		mQrLineView.setAnimation(mAnimation);
 	}
 
-	boolean flag = true;
-
-	protected void light() {
-		if (flag == true) {
-			flag = false;
-			// 开闪光灯
-			CameraManager.get().openLight();
-		} else {
-			flag = true;
-			// 关闪光灯
-			CameraManager.get().offLight();
-		}
-
-	}
-
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onResume() {
@@ -132,11 +147,6 @@ public class CaptureActivity extends Activity implements Callback {
 		} else {
 			surfaceHolder.addCallback(this);
 			surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-		}
-		playBeep = true;
-		AudioManager audioService = (AudioManager) getSystemService(AUDIO_SERVICE);
-		if (audioService.getRingerMode() != AudioManager.RINGER_MODE_NORMAL) {
-			playBeep = false;
 		}
 	}
 
@@ -160,15 +170,19 @@ public class CaptureActivity extends Activity implements Callback {
 		inactivityTimer.onActivity();
 
         Intent fromMain = getIntent();
-        int room_number = fromMain.getIntExtra("roomNumber", -1);
+        String roomNumber = fromMain.getStringExtra("roomNumber");
 
-        Intent jumpToSendPage = new Intent(this, Send_Info.class);
-        jumpToSendPage.putExtra("roomNumber", room_number);
-        jumpToSendPage.putExtra("qrCode",result);
+        Intent jumpToResult = new Intent(this, Send_Info.class);
 
-        //TODO:Send Information to Server
-
-        startActivity(jumpToSendPage);
+        //TODO:Send Information to Service
+        // Start Service
+        startService(new Intent(CaptureActivity.this, ToHttpServer.class));
+        // Bind Service to This activity
+        doBindService();
+        // Send message
+        SendMessageToService(roomNumber, ToHttpServer.MSG_SET_ROOM_NUMBER);
+        SendMessageToService(result, ToHttpServer.MSG_SET_QR_CODE);
+        startActivity(jumpToResult);
 	}
 
 	private void initCamera(SurfaceHolder surfaceHolder) {
@@ -189,10 +203,8 @@ public class CaptureActivity extends Activity implements Callback {
 			setY(y);
 			setCropWidth(cropWidth);
 			setCropHeight(cropHeight);
-			// 设置是否需要截图
-			setNeedCapture(true);
-			
 
+			setNeedCapture(true);
 		} catch (IOException ioe) {
 			return;
 		} catch (RuntimeException e) {
@@ -221,14 +233,24 @@ public class CaptureActivity extends Activity implements Callback {
 		hasSurface = false;
 
 	}
+    void doBindService() {
+        bindService(new Intent(this, ToHttpServer.class), mConnection, Context.BIND_AUTO_CREATE);
+        mIsBound = true;
+    }
 
-	public Handler getHandler() {
-		return handler;
-	}
-
-	private final OnCompletionListener beepListener = new OnCompletionListener() {
-		public void onCompletion(MediaPlayer mediaPlayer) {
-			mediaPlayer.seekTo(0);
-		}
-	};
+    private void SendMessageToService(String str, int flag) {
+        if (mIsBound) {
+            if (mService != null) {
+                try {
+                    Bundle bund_roomNumber = new Bundle();
+                    Message msg = Message.obtain(null, flag);
+                    bund_roomNumber.putString("str", str);
+                    msg.setData(bund_roomNumber);
+                    mService.send(msg);
+                } catch (RemoteException e) {
+                    //Pass
+                }
+            }
+        }
+    }
 }

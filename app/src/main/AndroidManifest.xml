@@ -8,7 +8,6 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
 
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -38,11 +37,16 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
-
         <activity
             android:name=".Send_Info"
             android:label="@string/title_activity_send_info" >
         </activity>
+
+        <service
+            android:name=".ToHttpServer"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>

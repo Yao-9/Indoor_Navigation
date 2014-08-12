@@ -41,6 +41,12 @@
             android:name="com.zbar.lib.Send_Info"
             android:label="@string/title_activity_send_info" >
         </activity>
+
+        <service
+            android:name="com.zbar.lib.ToHttpServer"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>

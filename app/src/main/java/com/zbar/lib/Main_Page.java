@@ -28,11 +28,9 @@ public class Main_Page extends Activity {
         if (!isValid(content)) {
             return;
         }
-        String number_only = content.replaceAll("-","");
-        int roomNumber = Integer.parseInt(number_only);
 
         Intent intent = new Intent(this, CaptureActivity.class);
-        intent.putExtra("roomNumber",roomNumber);
+        intent.putExtra("roomNumber",content);
         startActivity(intent);
     }
 
