@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.TextView;
 
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
@@ -19,6 +20,7 @@ import java.net.URL;
 import java.util.InputMismatchException;
 
 public class HTTPUtil {
+
 
     public static void getWebPage(TextView display) {
         new DownloadWebPage(display).execute("http://www.google.com");

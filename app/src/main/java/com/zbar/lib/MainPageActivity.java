@@ -15,7 +15,7 @@ import java.lang.Integer;
 
 import com.zbar.lib.R;
 
-public class Main_Page extends Activity {
+public class MainPageActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

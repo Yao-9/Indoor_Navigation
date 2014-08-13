@@ -1,16 +1,11 @@
 package com.zbar.lib;
 
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
-import android.os.Message;
 import android.os.Messenger;
-import android.os.RemoteException;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
@@ -145,7 +140,7 @@ public class CaptureActivity extends Activity implements Callback {
         Intent fromMain = getIntent();
         String roomNumber = fromMain.getStringExtra("roomNumber");
 
-        Intent toSendPage = new Intent(this, Send.class);
+        Intent toSendPage = new Intent(this, SendActivity.class);
         toSendPage.putExtra("roomNumber", roomNumber);
         toSendPage.putExtra("qrCode", result);
         startActivity(toSendPage);

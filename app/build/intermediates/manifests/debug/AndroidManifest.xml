@@ -25,7 +25,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.zbar.lib.Main_Page"
+            android:name="com.zbar.lib.MainPageActivity"
             android:label="@string/title_activity_main__page" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,7 +40,7 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <activity
-            android:name="com.zbar.lib.Send"
+            android:name="com.zbar.lib.SendActivity"
             android:label="@string/title_activity_send_info" >
         </activity>
     </application>

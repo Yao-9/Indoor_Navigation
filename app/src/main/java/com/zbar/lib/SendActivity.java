@@ -8,7 +8,11 @@ import android.widget.TextView;
 
 import com.zbar.lib.util.HTTPUtil;
 
-public class Send extends Activity {
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
+public class SendActivity extends Activity {
     private static final String Tag = "Send Activity";
     private static TextView roomNumberView;
     private static TextView qrCodeView;
@@ -26,8 +30,8 @@ public class Send extends Activity {
     @Override
     protected void onResume() {
         Intent intent = getIntent();
-        String qr_code = intent.getStringExtra("qrCode");
-        int room_number = intent.getIntExtra("roomNumber", -1);
+        String qrCode = intent.getStringExtra("qrCode");
+        String roomNumber = intent.getStringExtra("roomNumber");
 
         isNetAvail = HTTPUtil.CheckNetwork(this);
         if (!isNetAvail) {
@@ -36,15 +40,18 @@ public class Send extends Activity {
             return;
         }
 
+        JSONObject res = packAsJSON("roomNum", roomNumber, "qr", qrCode);
+
         HTTPUtil.getWebPage(roomNumberView);
+//        TODO:HTTPUtil.postMessege（res);
         super.onResume();
     }
 
-//        roomNumberView.append(Integer.toString(room_number));
-//        if (qr_code != null)
-//            qrCodeView.append(qr_code);
-//        HttpManager.get();
-        //TODO: Send qr_code and roomNumber to Server(Make httpRequest)
-        // postData(result, qrCode)
-        //TODO: Get instruction from Server
+    private JSONObject packAsJSON(String key1, String value1, String key2, String value2) {
+        HashMap<String, String> res = new HashMap<String, String>();
+        res.put(key1, value1);
+        res.put(key2, value2);
+        return new JSONObject(res);
+    }
+
 }

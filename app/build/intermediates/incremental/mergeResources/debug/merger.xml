@@ -8267,10 +8267,26 @@ true
     <dataSet config="main" >
         <source path="/home/yao/AndroidStudioProjects/Indoor_Navigation/app/src/main/res" >
             <file
+                path="/home/yao/AndroidStudioProjects/Indoor_Navigation/app/src/main/res/values-w820dp/dimens.xml"
+                qualifiers="w820dp-v13" >
+                <dimen name="activity_horizontal_margin" >64dp
+                </dimen>
+            </file>
+            <file
                 name="ic_launcher"
                 path="/home/yao/AndroidStudioProjects/Indoor_Navigation/app/src/main/res/drawable-hdpi/ic_launcher.png"
                 qualifiers="hdpi-v4"
                 type="drawable" />
+            <file
+                name="main__page"
+                path="/home/yao/AndroidStudioProjects/Indoor_Navigation/app/src/main/res/menu/main__page.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="send_info"
+                path="/home/yao/AndroidStudioProjects/Indoor_Navigation/app/src/main/res/menu/send_info.xml"
+                qualifiers=""
+                type="menu" />
             <file
                 name="ic_launcher"
                 path="/home/yao/AndroidStudioProjects/Indoor_Navigation/app/src/main/res/drawable-mdpi/ic_launcher.png"
@@ -8361,6 +8377,14 @@ true
                 </style>
             </file>
             <file
+                path="/home/yao/AndroidStudioProjects/Indoor_Navigation/app/src/main/res/values/dimens.xml"
+                qualifiers="" >
+                <dimen name="activity_vertical_margin" >16dp
+                </dimen>
+                <dimen name="activity_horizontal_margin" >16dp
+                </dimen>
+            </file>
+            <file
                 path="/home/yao/AndroidStudioProjects/Indoor_Navigation/app/src/main/res/values/ids.xml"
                 qualifiers="" >
                 <item
@@ -8388,6 +8412,16 @@ true
                 qualifiers="xxhdpi-v4"
                 type="drawable" />
             <file
+                name="activity_send_info"
+                path="/home/yao/AndroidStudioProjects/Indoor_Navigation/app/src/main/res/layout/activity_send_info.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_main_page"
+                path="/home/yao/AndroidStudioProjects/Indoor_Navigation/app/src/main/res/layout/activity_main_page.xml"
+                qualifiers=""
+                type="layout" />
+            <file
                 name="activity_qr_scan"
                 path="/home/yao/AndroidStudioProjects/Indoor_Navigation/app/src/main/res/layout/activity_qr_scan.xml"
                 qualifiers=""
@@ -8397,40 +8431,6 @@ true
                 path="/home/yao/AndroidStudioProjects/Indoor_Navigation/app/src/main/res/raw/beep.ogg"
                 qualifiers=""
                 type="raw" />
-            <file
-                path="/home/yao/AndroidStudioProjects/Indoor_Navigation/app/src/main/res/values/dimens.xml"
-                qualifiers="" >
-                <dimen name="activity_vertical_margin" >16dp
-                </dimen>
-                <dimen name="activity_horizontal_margin" >16dp
-                </dimen>
-            </file>
-            <file
-                name="activity_main_page"
-                path="/home/yao/AndroidStudioProjects/Indoor_Navigation/app/src/main/res/layout/activity_main_page.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="main__page"
-                path="/home/yao/AndroidStudioProjects/Indoor_Navigation/app/src/main/res/menu/main__page.xml"
-                qualifiers=""
-                type="menu" />
-            <file
-                path="/home/yao/AndroidStudioProjects/Indoor_Navigation/app/src/main/res/values-w820dp/dimens.xml"
-                qualifiers="w820dp-v13" >
-                <dimen name="activity_horizontal_margin" >64dp
-                </dimen>
-            </file>
-            <file
-                name="send_info"
-                path="/home/yao/AndroidStudioProjects/Indoor_Navigation/app/src/main/res/menu/send_info.xml"
-                qualifiers=""
-                type="menu" />
-            <file
-                name="activity_send_info"
-                path="/home/yao/AndroidStudioProjects/Indoor_Navigation/app/src/main/res/layout/activity_send_info.xml"
-                qualifiers=""
-                type="layout" />
         </source>
         <source path="/home/yao/AndroidStudioProjects/Indoor_Navigation/app/build/generated/res/rs/debug" />
         <source path="/home/yao/AndroidStudioProjects/Indoor_Navigation/app/build/generated/res/generated/debug" />
