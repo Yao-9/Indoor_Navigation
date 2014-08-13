@@ -12,6 +12,7 @@ import android.widget.EditText;
 
 import java.lang.Integer;
 
+
 import com.zbar.lib.R;
 
 public class Main_Page extends Activity {

@@ -2,22 +2,15 @@ package com.zbar.lib;
 
 import android.app.Activity;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.res.AssetFileDescriptor;
-import android.graphics.Paint;
 import android.graphics.Point;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
-import android.os.Vibrator;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
@@ -26,7 +19,6 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.zbar.lib.camera.CameraManager;
 import com.zbar.lib.decode.CaptureActivityHandler;
@@ -94,25 +86,6 @@ public class CaptureActivity extends Activity implements Callback {
 
     Messenger mService = null;
 
-    private ServiceConnection mConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            mService = new Messenger(iBinder);
-            try {
-                Message msg = Message.obtain(null, ToHttpServer.MSG_REGISTER_CLIENT);
-                mService.send(msg);
-            } catch (RemoteException e) {
-                // Pass
-            }
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName componentName) {
-            mService = null;
-            mIsBound = false;
-        }
-    };
-
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -172,17 +145,10 @@ public class CaptureActivity extends Activity implements Callback {
         Intent fromMain = getIntent();
         String roomNumber = fromMain.getStringExtra("roomNumber");
 
-        Intent jumpToResult = new Intent(this, Send_Info.class);
-
-        //TODO:Send Information to Service
-        // Start Service
-        startService(new Intent(CaptureActivity.this, ToHttpServer.class));
-        // Bind Service to This activity
-        doBindService();
-        // Send message
-        SendMessageToService(roomNumber, ToHttpServer.MSG_SET_ROOM_NUMBER);
-        SendMessageToService(result, ToHttpServer.MSG_SET_QR_CODE);
-        startActivity(jumpToResult);
+        Intent toSendPage = new Intent(this, Send.class);
+        toSendPage.putExtra("roomNumber", roomNumber);
+        toSendPage.putExtra("qrCode", result);
+        startActivity(toSendPage);
 	}
 
 	private void initCamera(SurfaceHolder surfaceHolder) {
@@ -233,24 +199,4 @@ public class CaptureActivity extends Activity implements Callback {
 		hasSurface = false;
 
 	}
-    void doBindService() {
-        bindService(new Intent(this, ToHttpServer.class), mConnection, Context.BIND_AUTO_CREATE);
-        mIsBound = true;
-    }
-
-    private void SendMessageToService(String str, int flag) {
-        if (mIsBound) {
-            if (mService != null) {
-                try {
-                    Bundle bund_roomNumber = new Bundle();
-                    Message msg = Message.obtain(null, flag);
-                    bund_roomNumber.putString("str", str);
-                    msg.setData(bund_roomNumber);
-                    mService.send(msg);
-                } catch (RemoteException e) {
-                    //Pass
-                }
-            }
-        }
-    }
 }
