@@ -5,50 +5,67 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.TextView;
 
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.InputMismatchException;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class HTTPUtil {
 
+    static String TAG = "HTTPUtil";
 
-    public static void getWebPage(TextView display) {
-        new DownloadWebPage(display).execute("http://www.google.com");
+    static JSONObject JSONUpload = null;
+    static boolean isJSONUploadValid = false;
+
+    public static void postJSONToServer(JSONObject json, String url) {
+        JSONUpload = json;
+        isJSONUploadValid = true;
+        new DownloadWebPage().execute(url);
     }
 
-    private static class DownloadWebPage extends AsyncTask<String, Void, String> {
-        TextView display;
-
-        public DownloadWebPage() {
-            super();
-        }
-
-        public DownloadWebPage(TextView display){
-            this.display = display;
-        }
+    private static class DownloadWebPage extends AsyncTask<String, Void, Void> {
 
         @Override
-        protected String doInBackground(String... urls) {
+        protected Void doInBackground(String... urls) {
             try {
-                return downloadUrl(urls[0]);
+                postURL(urls[0]);
+                return null;
             } catch (IOException e){
-                return "URL invalid";
+                return null;
             }
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            display.setText(result);
+        protected void onPostExecute(Void nonsense) {
+            Log.i(TAG, "upload Success");
+        }
+    }
+
+    private static void postURL(String str_url) throws IOException {
+        if (!isJSONUploadValid){
+            Log.i(TAG, "JSON is not ready before send POST, Abort.");
+            return;
+        }
+        try {
+            URL url = new URL(str_url);
+            HttpURLConnection connection  = (HttpsURLConnection) url.openConnection();
+            connection.setDoOutput(true);
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("IndoorNavigaion", "version 0.0.0");
+
+            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+            writer.write(JSONUpload.toString());
+            writer.close();
+        } catch (MalformedURLException e){
+            Log.i(TAG,"malformed URL");
+        } catch (IOException e){
+            Log.i(TAG, "IOException");
         }
     }
 
@@ -63,39 +80,32 @@ public class HTTPUtil {
             return false;
         }
     }
+//    private static class DownloadWebPage extends AsyncTask<String, Void, String> {
+//        TextView display;
+//
+//        public DownloadWebPage() {
+//            super();
+//        }
+//
+//        public DownloadWebPage(TextView display){
+//            this.display = display;
+//        }
+//
+//        @Override
+//        protected String doInBackground(String... urls) {
+//            try {
+//                return downloadUrl(urls[0]);
+//            } catch (IOException e){
+//                return "URL invalid";
+//            }
+//        }
 
-    private static String downloadUrl(String myurl) throws IOException {
-        InputStream is = null;
-        int len = 500;
-
-        try {
-            URL url = new URL(myurl);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(10000);
-            conn.setConnectTimeout(10000);
-            conn.setRequestMethod("GET");
-            conn.setDoInput(true);
-
-            conn.connect();
-
-            int res = conn.getResponseCode();
-            Log.d("DEBUG", "response is " + res);
-            is = conn.getInputStream();
-
-            String contengAsString = readIt(is, len);
-            return contengAsString;
-        } finally {
-            if (is != null) {
-                is.close();
-            }
-        }
-    }
-
-    public static String readIt(InputStream stream, int len) throws IOException, UnsupportedEncodingException {
-        Reader reader = null;
-        reader = new InputStreamReader(stream, "UTF-8");
-        char[] buffer = new char[len];
-        reader.read(buffer);
-        return new String(buffer);
-    }
+//        @Override
+//        protected void onPostExecute(String result) {
+//            display.setText(result);
+//        }
+//    }
+//    public static void getWebPage(TextView display) {
+//        new DownloadWebPage(display).execute("http://www.google.com");
+//    }
 }

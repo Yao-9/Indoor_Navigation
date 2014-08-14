@@ -42,12 +42,12 @@ public class SendActivity extends Activity {
 
         JSONObject res = packAsJSON("roomNum", roomNumber, "qr", qrCode);
 
-        HTTPUtil.getWebPage(roomNumberView);
-//        TODO:HTTPUtil.postMessege（res);
+//        HTTPUtil.getWebPage(roomNumberView);
+        HTTPUtil.postJSONToServer(res, "http://warm-woodland-3600.herokuapp.com/");
         super.onResume();
     }
 
-    private JSONObject packAsJSON(String key1, String value1, String key2, String value2) {
+    public JSONObject packAsJSON(String key1, String value1, String key2, String value2) {
         HashMap<String, String> res = new HashMap<String, String>();
         res.put(key1, value1);
         res.put(key2, value2);
