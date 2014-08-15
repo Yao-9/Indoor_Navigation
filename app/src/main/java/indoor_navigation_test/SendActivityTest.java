@@ -29,7 +29,4 @@ public class SendActivityTest extends ActivityInstrumentationTestCase2<SendActiv
         assertEquals(res.getString(key1), value1);
         assertEquals(res.getString(key2), value2);
     }
-
-
-
 }

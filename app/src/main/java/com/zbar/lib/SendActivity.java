@@ -42,8 +42,7 @@ public class SendActivity extends Activity {
 
         JSONObject res = packAsJSON("roomNum", roomNumber, "qr", qrCode);
 
-//        HTTPUtil.getWebPage(roomNumberView);
-        HTTPUtil.postJSONToServer(res, "http://warm-woodland-3600.herokuapp.com/");
+        HTTPUtil.postJSONToServer(res, "http://warm-headland-2583.herokuapp.com/");
         super.onResume();
     }
 
@@ -53,5 +52,4 @@ public class SendActivity extends Activity {
         res.put(key2, value2);
         return new JSONObject(res);
     }
-
 }

@@ -9,12 +9,12 @@ import android.util.Log;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import javax.net.ssl.HttpsURLConnection;
+import java.util.Scanner;
 
 public class HTTPUtil {
 
@@ -22,14 +22,23 @@ public class HTTPUtil {
 
     static JSONObject JSONUpload = null;
     static boolean isJSONUploadValid = false;
+    static boolean isUpLoadSuccessful = false;
+
+    public void setJSONUpload(JSONObject json) {
+        this.JSONUpload = json;
+    }
+
+    public void setIsJSONUploadValid(boolean valid) {
+        this.isJSONUploadValid = valid;
+    }
 
     public static void postJSONToServer(JSONObject json, String url) {
         JSONUpload = json;
         isJSONUploadValid = true;
-        new DownloadWebPage().execute(url);
+        new PostData().execute(url);
     }
 
-    private static class DownloadWebPage extends AsyncTask<String, Void, Void> {
+    private static class PostData extends AsyncTask<String, Void, Void> {
 
         @Override
         protected Void doInBackground(String... urls) {
@@ -47,26 +56,51 @@ public class HTTPUtil {
         }
     }
 
-    private static void postURL(String str_url) throws IOException {
+    public static boolean postURL(String str_url) throws IOException {
         if (!isJSONUploadValid){
             Log.i(TAG, "JSON is not ready before send POST, Abort.");
-            return;
+            return false;
         }
+
         try {
             URL url = new URL(str_url);
-            HttpURLConnection connection  = (HttpsURLConnection) url.openConnection();
+            HttpURLConnection connection  = (HttpURLConnection) url.openConnection();
+            String response = null;
+
             connection.setDoOutput(true);
             connection.setRequestMethod("POST");
-            connection.setRequestProperty("IndoorNavigaion", "version 0.0.0");
+            connection.setRequestProperty("IndoorNavigation", "version 0.0.0");
+            connection.setRequestProperty("Accept", "Application/json");
+            connection.setRequestProperty("Content-Type", "application/json");
+
 
             OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
             writer.write(JSONUpload.toString());
             writer.close();
+
+            InputStream reader = connection.getInputStream();
+            response = inputStreamToString(reader);
+            reader.close();
+            if (response.equals("UploadSuccess")) {
+                Log.i(TAG, "Upload Success");
+                return true;
+            } else {
+                Log.i(TAG, "Upload unsuccess");
+                return false;
+            }
+
         } catch (MalformedURLException e){
             Log.i(TAG,"malformed URL");
+            return false;
         } catch (IOException e){
             Log.i(TAG, "IOException");
+            return false;
         }
+    }
+
+    public static String inputStreamToString(InputStream reader) {
+        Scanner s = new Scanner(reader).useDelimiter("\\A");
+        return s.hasNext() ? s.next() : "";
     }
 
     public static boolean CheckNetwork(Context current) {
