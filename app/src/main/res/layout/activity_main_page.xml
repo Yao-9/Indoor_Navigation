@@ -1,10 +1,13 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.zbar.lib.MainPageActivity">
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:orientation="vertical" >
 
-    <TextView
+<TextView
         android:id = "@+id/main_page_tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,15 +15,13 @@
 
     <EditText
         android:id = "@+id/room_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/main_page_tip"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <Button
         android:text="@string/main_page_button"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/room_number"
         android:onClick="jumpToCamera" />
 
-</RelativeLayout>
+</LinearLayout>

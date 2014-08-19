@@ -238,7 +238,6 @@ int drawable capture 0x7f020057
 int drawable ic_launcher 0x7f020058
 int drawable scan_line 0x7f020059
 int drawable scan_mask 0x7f02005a
-int id QRCodeResult 0x7f08004d
 int id action_bar 0x7f080022
 int id action_bar_activity_content 0x7f080014
 int id action_bar_container 0x7f080021
@@ -250,7 +249,7 @@ int id action_context_bar 0x7f080023
 int id action_menu_divider 0x7f080015
 int id action_menu_presenter 0x7f080016
 int id action_mode_close_button 0x7f08002a
-int id action_settings 0x7f08004e
+int id action_settings 0x7f08004d
 int id activity_chooser_view_content 0x7f08002b
 int id always 0x7f08000f
 int id auto_focus 0x7f080017
@@ -292,7 +291,6 @@ int id quit 0x7f08001e
 int id radio 0x7f080035
 int id restart_preview 0x7f08001f
 int id right_mask 0x7f08004b
-int id roomNumberResult 0x7f08004c
 int id room_number 0x7f080043
 int id search_badge 0x7f080038
 int id search_bar 0x7f080037
@@ -315,6 +313,7 @@ int id title 0x7f080031
 int id top_action_bar 0x7f080026
 int id top_mask 0x7f080046
 int id up 0x7f080027
+int id uploadStatus 0x7f08004c
 int id useLogo 0x7f080003
 int id withText 0x7f080010
 int integer abc_max_action_buttons 0x7f0a0000
@@ -364,12 +363,12 @@ int string abc_shareactionprovider_share_with 0x7f0b000b
 int string abc_shareactionprovider_share_with_application 0x7f0b000c
 int string action_settings 0x7f0b000d
 int string app_name 0x7f0b000e
-int string hello_world 0x7f0b000f
-int string main_page_button 0x7f0b0010
-int string main_page_tip 0x7f0b0011
-int string scan_tips 0x7f0b0012
-int string title_activity_main__page 0x7f0b0013
-int string title_activity_send_info 0x7f0b0014
+int string main_page_button 0x7f0b000f
+int string main_page_tip 0x7f0b0010
+int string scan_tips 0x7f0b0011
+int string title_activity_main__page 0x7f0b0012
+int string title_activity_send_info 0x7f0b0013
+int string upload_status 0x7f0b0014
 int style AppBaseTheme 0x7f0c0000
 int style AppTheme 0x7f0c0001
 int style TextAppearance_AppCompat_Base_CompactMenu_Dialog 0x7f0c0002

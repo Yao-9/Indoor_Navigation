@@ -933,7 +933,6 @@ containing a value of this type.
         public static final int scan_mask=0x7f02005a;
     }
     public static final class id {
-        public static final int QRCodeResult=0x7f08004d;
         public static final int action_bar=0x7f080022;
         public static final int action_bar_activity_content=0x7f080014;
         public static final int action_bar_container=0x7f080021;
@@ -945,7 +944,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f080015;
         public static final int action_menu_presenter=0x7f080016;
         public static final int action_mode_close_button=0x7f08002a;
-        public static final int action_settings=0x7f08004e;
+        public static final int action_settings=0x7f08004d;
         public static final int activity_chooser_view_content=0x7f08002b;
         public static final int always=0x7f08000f;
         public static final int auto_focus=0x7f080017;
@@ -987,7 +986,6 @@ containing a value of this type.
         public static final int radio=0x7f080035;
         public static final int restart_preview=0x7f08001f;
         public static final int right_mask=0x7f08004b;
-        public static final int roomNumberResult=0x7f08004c;
         public static final int room_number=0x7f080043;
         public static final int search_badge=0x7f080038;
         public static final int search_bar=0x7f080037;
@@ -1010,6 +1008,7 @@ containing a value of this type.
         public static final int top_action_bar=0x7f080026;
         public static final int top_mask=0x7f080046;
         public static final int up=0x7f080027;
+        public static final int uploadStatus=0x7f08004c;
         public static final int useLogo=0x7f080003;
         public static final int withText=0x7f080010;
     }
@@ -1069,12 +1068,12 @@ containing a value of this type.
         public static final int abc_shareactionprovider_share_with_application=0x7f0b000c;
         public static final int action_settings=0x7f0b000d;
         public static final int app_name=0x7f0b000e;
-        public static final int hello_world=0x7f0b000f;
-        public static final int main_page_button=0x7f0b0010;
-        public static final int main_page_tip=0x7f0b0011;
-        public static final int scan_tips=0x7f0b0012;
-        public static final int title_activity_main__page=0x7f0b0013;
-        public static final int title_activity_send_info=0x7f0b0014;
+        public static final int main_page_button=0x7f0b000f;
+        public static final int main_page_tip=0x7f0b0010;
+        public static final int scan_tips=0x7f0b0011;
+        public static final int title_activity_main__page=0x7f0b0012;
+        public static final int title_activity_send_info=0x7f0b0013;
+        public static final int upload_status=0x7f0b0014;
     }
     public static final class style {
         /** 

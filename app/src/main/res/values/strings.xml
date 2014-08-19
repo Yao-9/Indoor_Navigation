@@ -8,6 +8,6 @@
     <string name="main_page_button">Scan QR Code</string>
     <string name="main_page_tip">Enter Room Number You Want to Go!</string>
     <string name="title_activity_send_info">send_info</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="upload_status"></string>
 
 </resources>

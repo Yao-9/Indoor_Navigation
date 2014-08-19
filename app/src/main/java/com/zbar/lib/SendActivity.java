@@ -14,8 +14,7 @@ import java.util.HashMap;
 
 public class SendActivity extends Activity {
     private static final String Tag = "Send Activity";
-    private static TextView roomNumberView;
-    private static TextView qrCodeView;
+    private static TextView uploadStatus;
     private boolean isNetAvail;
 
     @Override
@@ -23,8 +22,7 @@ public class SendActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_info);
 
-        roomNumberView = (TextView) findViewById(R.id.roomNumberResult);
-        qrCodeView = (TextView) findViewById(R.id.QRCodeResult);
+        uploadStatus = (TextView) findViewById(R.id.uploadStatus);
     }
 
     @Override
