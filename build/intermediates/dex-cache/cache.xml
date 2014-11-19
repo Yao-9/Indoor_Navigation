@@ -2,8 +2,8 @@
 <pre-dex-items>
 
     <item
-        dex="/home/yao/AndroidStudioProjects/Indoor_Navigation/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-8b5c860573faa2c3658c9eb7c922f8653f8d917f.jar"
-        jar="/home/yao/Downloads/android-studio/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
+        dex="/home/yao/AndroidStudioProjects/Indoor_Navigation/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-435a6c6acff95de1db206b7fff7969872c481870.jar"
+        jar="/home/yao/software/android-studio/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
         jumboMode="false"
         revision="20.0.0"
         sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>

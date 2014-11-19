@@ -65,7 +65,7 @@ public class HTTPUtil {
         try {
             URL url = new URL(str_url);
             HttpURLConnection connection  = (HttpURLConnection) url.openConnection();
-            String response = null;
+            String response;
 
             connection.setDoOutput(true);
             connection.setRequestMethod("POST");
@@ -85,7 +85,7 @@ public class HTTPUtil {
                 Log.i(TAG, "Upload Success");
                 return true;
             } else {
-                Log.i(TAG, "Upload unsuccess");
+                Log.i(TAG, "Upload Unsuccessful");
                 return false;
             }
 
@@ -107,12 +107,8 @@ public class HTTPUtil {
         ConnectivityManager connMgr = (ConnectivityManager)
             current.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected()) {
-            return true;
-        }
-        else {
-            return false;
-        }
+
+        return (networkInfo != null && networkInfo.isConnected());
     }
 //    private static class DownloadWebPage extends AsyncTask<String, Void, String> {
 //        TextView display;

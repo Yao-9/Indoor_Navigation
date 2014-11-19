@@ -1,19 +1,14 @@
 package com.zbar.lib;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.widget.EditText;
 
 import java.lang.Integer;
 
 
-import com.zbar.lib.R;
 
 public class MainPageActivity extends Activity {
 
@@ -38,7 +33,7 @@ public class MainPageActivity extends Activity {
     private boolean isValid(String content) {
         String number_only = content.replaceAll("-","");
         try {
-            int number = Integer.parseInt(number_only);
+            Integer.parseInt(number_only);
         }
         catch(NumberFormatException nfe) {
             return false;
