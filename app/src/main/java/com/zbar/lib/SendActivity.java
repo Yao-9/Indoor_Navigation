@@ -5,11 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
-
 import com.zbar.lib.util.HTTPUtil;
-
 import org.json.JSONObject;
-
 import java.util.HashMap;
 
 public class SendActivity extends Activity {
@@ -33,7 +30,7 @@ public class SendActivity extends Activity {
 
         isNetAvail = HTTPUtil.CheckNetwork(this);
         if (!isNetAvail) {
-            //Show Message that Network is not Available
+            /* Log Message that Network is not Available */
             Log.i(Tag, "Network is not available");
             return;
         }
@@ -44,6 +41,7 @@ public class SendActivity extends Activity {
         super.onResume();
     }
 
+	/* Parse into two key-value pairs, return a JSON object consisting of this two pairs */
     public JSONObject packAsJSON(String key1, String value1, String key2, String value2) {
         HashMap<String, String> res = new HashMap<String, String>();
         res.put(key1, value1);

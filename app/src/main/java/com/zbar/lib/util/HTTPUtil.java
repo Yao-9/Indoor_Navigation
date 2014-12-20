@@ -8,12 +8,8 @@ import android.util.Log;
 
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.*;
+import java.net.*;
 import java.util.Scanner;
 
 public class HTTPUtil {
@@ -72,7 +68,6 @@ public class HTTPUtil {
             connection.setRequestProperty("IndoorNavigation", "version 0.0.0");
             connection.setRequestProperty("Accept", "Application/json");
             connection.setRequestProperty("Content-Type", "application/json");
-
 
             OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
             writer.write(JSONUpload.toString());
